@@ -8,7 +8,7 @@ import static org.example.Input.day1Input;
 public class Day1 {
 
     static void aoc1a() {
-        class Elf implements Comparable<Elf>{
+        class Elf implements Comparable<Elf> {
             final Long callories;
             final int number;
 
@@ -16,6 +16,7 @@ public class Day1 {
                 this.callories = callories;
                 this.number = number;
             }
+
             @Override
             public int compareTo(Elf other) {
                 return -this.callories.compareTo(other.callories);
@@ -57,12 +58,12 @@ public class Day1 {
         String[] elfLoad = day1Input.split("""
 
 
-""");
+                """);
         long[] elfCalList = Arrays.stream(elfLoad)
                 .map(elf -> {
                     String[] snacks = elf.split("""
 
-""");
+                            """);
                     return Arrays.stream(snacks).map(Long::parseLong).reduce(Long::sum);
                 })
                 .mapToLong(aLong -> aLong.orElse(0L))

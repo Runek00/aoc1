@@ -13,9 +13,9 @@ public class Day2 {
         symbolPoints.put('Z', 3);
 
         Integer output = 0;
-        for(String s : day2Input.split("""
+        for (String s : day2Input.split("""
 
-""")) {
+                """)) {
             output += symbolPoints.get(s.charAt(2));
             if (s.equals("A Y") || s.equals("B Z") || s.equals("C X")) {
                 output += 6;
@@ -33,9 +33,9 @@ public class Day2 {
         symbolPoints.put('Z', 6);
 
         Integer output = 0;
-        for(String s : day2Input.split("""
+        for (String s : day2Input.split("""
 
-""")) {
+                """)) {
             output += symbolPoints.get(s.charAt(2));
             if (s.equals("B X") || s.equals("A Y") || s.equals("C Z")) {
                 output += 1;

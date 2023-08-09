@@ -10,8 +10,8 @@ public class Day3 {
     static void aoc3() {
         String[] rucksacks = day3Input.split("""
 
-""");
-        int output =  Arrays.stream(rucksacks)
+                """);
+        int output = Arrays.stream(rucksacks)
                 .map(Day3::getWrongItem)
                 .map(Day3::priority)
                 .reduce(Integer::sum)
@@ -22,11 +22,11 @@ public class Day3 {
     static void aoc3a() {
         String[] rucksacks = day3Input.split("""
 
-""");
+                """);
         int output = -1;
         HashSet<Character> badgeFinder = new HashSet<>();
         for (int i = 0; i < rucksacks.length; i++) {
-            if (i%3 == 0) {
+            if (i % 3 == 0) {
                 output += priority(badgeFinder.stream().findAny().orElse('a'));
                 badgeFinder.clear();
                 for (char c : rucksacks[i].toCharArray()) {
@@ -53,7 +53,7 @@ public class Day3 {
         HashSet<Character> charSet = new HashSet<>();
         for (int i = 0; i < rucksack.length(); i++) {
             char c = rucksack.charAt(i);
-            if (i < rucksack.length()/2) {
+            if (i < rucksack.length() / 2) {
                 charSet.add(c);
             } else {
                 if (charSet.contains(c)) {
@@ -65,10 +65,10 @@ public class Day3 {
     }
 
     static int priority(char c) {
-        if(c >= 'a' && c <= 'z') {
-            return c-'a' + 1;
+        if (c >= 'a' && c <= 'z') {
+            return c - 'a' + 1;
         } else {
-            return c-'A' + 27;
+            return c - 'A' + 27;
         }
     }
 }
