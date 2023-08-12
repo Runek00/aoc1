@@ -1,28 +1,25 @@
 package org.example;
 
-import static org.example.Day1.aoc1;
-import static org.example.Day1.aoc1a;
-import static org.example.Day2.aoc2;
-import static org.example.Day2.aoc2a;
-import static org.example.Day3.aoc3;
-import static org.example.Day3.aoc3a;
-import static org.example.Day4.aoc4;
-import static org.example.Day4.aoc4a;
+import static org.example.Day1.*;
+import static org.example.Day2.*;
+import static org.example.Day3.*;
+import static org.example.Day4.*;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("\nAOC1:");
-        aoc1();
-        aoc1a();
+        System.out.println(aoc1(day1Input));
+        System.out.println(aoc1a(day1Input));
         System.out.println("\nAOC2:");
-        aoc2();
-        aoc2a();
+        System.out.println(aoc2(day2Input));
+        System.out.println(aoc2a(day2Input));
         System.out.println("\nAOC3:");
-        aoc3();
-        aoc3a();
+        System.out.println(aoc3(day3Input));
+        System.out.println(aoc3a(day3Input));
         System.out.println("\nAOC4:");
-        aoc4();
-        aoc4a();
+        System.out.println(aoc4(day4Input));
+        System.out.println(aoc4a(day4Input));
+        System.out.println("\nAOC5:");
     }
 
 }
