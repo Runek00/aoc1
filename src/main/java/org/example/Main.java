@@ -6,6 +6,7 @@ import static org.example.Day3.*;
 import static org.example.Day4.*;
 import static org.example.Day5.*;
 import static org.example.Day6.*;
+import static org.example.Day7.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +28,9 @@ public class Main {
         System.out.println("\nAOC6:");
         System.out.println(aoc6(day6Input));
         System.out.println(aoc6a(day6Input));
+        System.out.println("\nAOC7:");
+        System.out.println(aoc7(day7Input));
+        System.out.println(aoc7a(day7Input));
     }
 
 }
