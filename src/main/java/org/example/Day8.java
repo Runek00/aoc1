@@ -9,10 +9,6 @@ public class Day8 {
         return getAllVisible(inputTab).size() + 4;
     }
 
-    public static void main(String[] args) {
-        System.out.println(aoc8a(day8Input));
-    }
-
     static int aoc8a(String input) {
         int[][] inputTab = toTab(input);
         int[][] finalScores = finalScenicScores(inputTab);

@@ -8,6 +8,8 @@ import static org.example.Day5.*;
 import static org.example.Day6.*;
 import static org.example.Day7.*;
 import static org.example.Day8.*;
+import static org.example.Day9.aoc9;
+import static org.example.Day9.day9Input;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,6 +37,9 @@ public class Main {
         System.out.println("\nAOC8:");
         System.out.println(aoc8(day8Input));
         System.out.println(aoc8a(day8Input));
+        System.out.println("\nAOC9:");
+        System.out.println(aoc9(day9Input));
+//        System.out.println(aoc9a(day9Input));
     }
 
 }
