@@ -53,7 +53,7 @@ public class Day9 {
             for (int i = 0; i < com.steps; i++) {
                 Pos prevPos = pos;
                 pos = pos.addDir(com.dir());
-                if (pos.dist(tPosList.peekLast()) > 1) {
+                if (!tPosList.isEmpty() && pos.dist(tPosList.peekLast()) > 1) {
                     tPosList.add(prevPos);
                 }
             }
