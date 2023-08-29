@@ -31,7 +31,7 @@ public class Day9 {
 
         @Override
         public int hashCode() {
-            return (int)(((long)x*(long)y) % (long)Integer.MAX_VALUE);
+            return (int) (((long) x * (long) y) % (long) Integer.MAX_VALUE);
         }
 
         @Override
@@ -49,35 +49,56 @@ public class Day9 {
         Pos pos = new Pos(0, 0);
         LinkedList<Pos> tPosList = new LinkedList<>();
         tPosList.add(pos);
-        int minX = 0;
-        int maxX = 0;
-        int minY = 0;
-        int maxY = 0;
         for (Command com : commandList) {
             for (int i = 0; i < com.steps; i++) {
                 Pos prevPos = pos;
                 pos = pos.addDir(com.dir());
-                minX = Math.min(minX, pos.x());
-                maxX = Math.max(maxX, pos.x());
-                minY = Math.min(minY, pos.y());
-                maxY = Math.max(maxY, pos.y());
                 if (pos.dist(tPosList.peekLast()) > 1) {
                     tPosList.add(prevPos);
                 }
             }
         }
         return tPosList.stream().distinct().count();
+    }
 
+    static Long aoc9a(String input) {
+
+        List<Command> commandList = getCommandList(input);
+        LinkedList<Pos> tPosList = new LinkedList<>();
+        Pos[] rope = new Pos[10];
+        for (int i = 0; i < 10; i++) {
+            rope[i] = new Pos(0, 0);
+        }
+        for (Command com : commandList) {
+            for (int i = 0; i < com.steps; i++) {
+                rope[0] = rope[0].addDir(com.dir());
+                for (int j = 1; j < 10; j++) {
+                    if (rope[j].dist(rope[j-1]) > 1) {
+                        int newX = rope[j].x();
+                        int newY = rope[j].y();
+                        if (rope[j-1].x()-rope[j].x() > 0) {
+                            newX++;
+                        } else if (rope[j-1].x()-rope[j].x() < 0) {
+                            newX--;
+                        }
+                        if (rope[j-1].y()-rope[j].y() > 0) {
+                            newY++;
+                        } else if (rope[j-1].y()-rope[j].y() < 0) {
+                            newY--;
+                        }
+                        rope[j] = new Pos(newX, newY);
+                    }
+                }
+                tPosList.add(rope[9]);
+            }
+        }
+        return tPosList.stream().distinct().count();
     }
 
     private static List<Command> getCommandList(String input) {
         return Arrays.stream(input.split("\n"))
                 .map(str -> new Command(str.charAt(0), Integer.parseInt(str.split(" ")[1])))
                 .collect(Collectors.toList());
-    }
-
-    static int aoc9a(String input) {
-        return 0;
     }
 
     static String day9Input = """
