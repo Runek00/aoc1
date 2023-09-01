@@ -42,6 +42,7 @@ public class Main {
         System.out.println(aoc9a(day9Input));
         System.out.println("\nAOC10:");
         System.out.println(aoc10(day10Input));
+        System.out.println(aoc10a(day10Input));
     }
 
 }

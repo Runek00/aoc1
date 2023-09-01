@@ -2,10 +2,7 @@ package org.example;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Day10 {
 
@@ -34,6 +31,36 @@ public class Day10 {
             }
         }
         return output;
+    }
+
+    static String aoc10a(String input) {
+        long X = 1L;
+        Iterator<Long> cs = commandStream(input);
+        int commandCounter = 0;
+        Long n = 0L;
+        StringBuilder out = new StringBuilder();
+        for (int cycle = 0; cycle < 241; cycle++) {
+            commandCounter--;
+            if (cycle%40 == X || cycle%40 == X-1 || cycle%40 == X+1) {
+                out.append("#");
+            } else {
+                out.append(".");
+            }
+            if (commandCounter <= 0) {
+                if (n != null) {
+                    X += n;
+                    n = null;
+                }
+                if (cs.hasNext()) {
+                    n = cs.next();
+                    commandCounter += n == null ? 1 : 2;
+                }
+            }
+            if ((cycle+1)%40 == 0) {
+                out.append("\n");
+            }
+        }
+        return out.toString();
     }
 
     private static Iterator<Long> commandStream(String input) {
