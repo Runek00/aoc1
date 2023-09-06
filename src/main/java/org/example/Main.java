@@ -2,6 +2,7 @@ package org.example;
 
 import static org.example.Day1.*;
 import static org.example.Day10.*;
+import static org.example.Day11.*;
 import static org.example.Day2.*;
 import static org.example.Day3.*;
 import static org.example.Day4.*;
@@ -43,6 +44,9 @@ public class Main {
         System.out.println("\nAOC10:");
         System.out.println(aoc10(day10Input));
         System.out.println(aoc10a(day10Input));
+        System.out.println("\nAOC11:");
+        System.out.println(aoc11(day11Input));
+        System.out.println(aoc11a(day11Input));
     }
 
 }
