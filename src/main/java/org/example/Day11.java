@@ -5,18 +5,18 @@ import java.util.concurrent.Callable;
 
 public class Day11 {
 
-    static Integer aoc11(String input) {
+    static Long aoc11(String input) {
         Monke[] monkeMap = parseMonke(input);
-        for (int i = 0; i < 20; i++) {
+        for (long i = 0; i < 20; i++) {
             for (Monke m : monkeMap) {
                 try {
-                    m.turn(monkeMap);
+                    m.turn(monkeMap, false);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         }
-        List<Integer> maxVals = Arrays.stream(monkeMap)
+        List<Long> maxVals = Arrays.stream(monkeMap)
                 .map(m -> m.inspection)
                 .sorted(Comparator.reverseOrder())
                 .limit(2)
@@ -24,8 +24,25 @@ public class Day11 {
         return maxVals.get(0) * maxVals.get(1);
     }
 
-    static String aoc11a(String input) {
-        return "";
+    static Long aoc11a(String input) {
+        Monke[] monkeMap = parseMonke(input);
+        Long alltests = Arrays.stream(monkeMap).map(m -> (long)m.testValue).reduce(1L, (tv1, tv2) -> tv1*tv2);
+        Arrays.stream(monkeMap).forEach(m -> m.allTests = alltests);
+        for (long i = 0; i < 10000; i++) {
+            for (Monke m : monkeMap) {
+                try {
+                    m.turn(monkeMap, true);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        List<Long> maxVals = Arrays.stream(monkeMap)
+                .map(m -> m.inspection)
+                .sorted(Comparator.reverseOrder())
+                .limit(2)
+                .toList();
+        return maxVals.get(0) * maxVals.get(1);
     }
 
     static String day11Input = """
@@ -97,43 +114,49 @@ public class Day11 {
 
     static class Monke {
 
-        int inspection = 0;
+        long inspection = 0;
 
-        Queue<Integer> items = new ArrayDeque<>();
+        Queue<Long> items = new ArrayDeque<>();
 
-        InputCall<Integer> operation;
+        InputCall<Long> operation;
 
-        InputCall<Boolean> test;
+        int testValue;
 
-        Integer targetTrue;
+        int targetTrue;
 
-        Integer targetFalse;
+        int targetFalse;
+
+        Long allTests;
 
         Monke(String input) {
             String[] rows = input.split("\n");
             Arrays.stream(rows[1].trim().split("Starting items: ")[1].split(", "))
-                    .map(Integer::parseInt)
+                    .map(Long::parseLong)
                     .forEach(item -> items.add(item));
 
             operation = getOperation(rows[2].split(" = ")[1]);
-            test = getTest(rows[3].split(" by ")[1]);
+            testValue = Integer.parseInt(rows[3].split(" by ")[1]);
             targetTrue = Integer.parseInt(rows[4].split("monkey ")[1]);
             targetFalse = Integer.parseInt(rows[5].split("monkey ")[1]);
         }
 
-        void addItem(int item) {
+        void addItem(long item) {
             this.items.add(item);
         }
 
-        void turn(Monke[] monkeMap) throws Exception {
+        void turn(Monke[] monkeMap, boolean strongMonke) throws Exception {
             while (!items.isEmpty()) {
-                Integer item = items.poll();
+                Long item = items.poll();
                 operation.item = item;
                 item = operation.call();
                 inspection++;
-                item /= 3;
-                test.item = item;
-                if (test.call()) {
+                if (!strongMonke){
+                    item /= 3;
+                }
+                if (allTests != null) {
+                    item = item%allTests;
+                }
+                if (item % testValue == 0) {
                     monkeMap[targetTrue].addItem(item);
                 } else {
                     monkeMap[targetFalse].addItem(item);
@@ -143,51 +166,41 @@ public class Day11 {
     }
 
     abstract static class InputCall<T> implements Callable<T> {
-        int item;
+        long item;
     }
 
-    private static InputCall<Integer> getOperation(String oper) {
+    private static InputCall<Long> getOperation(String oper) {
         if (oper.equals("old * old")) {
             return new InputCall<>() {
                 @Override
-                public Integer call() {
+                public Long call() {
                     return item * item;
                 }
             };
         } else if (oper.equals("old + old")) {
             return new InputCall<>() {
                 @Override
-                public Integer call() {
+                public Long call() {
                     return 2 * item;
                 }
             };
         } else if (oper.contains("*")) {
-            int param = Integer.parseInt(oper.split(" \\* ")[1]);
+            long param = Long.parseLong(oper.split(" \\* ")[1]);
             return new InputCall<>() {
                 @Override
-                public Integer call() {
+                public Long call() {
                     return item * param;
                 }
             };
         } else if (oper.contains("+")) {
-            int param = Integer.parseInt(oper.split(" \\+ ")[1]);
+            long param = Long.parseLong(oper.split(" \\+ ")[1]);
             return new InputCall<>() {
                 @Override
-                public Integer call() {
+                public Long call() {
                     return item + param;
                 }
             };
         }
         return null;
-    }
-
-    private static InputCall<Boolean> getTest(String tst) {
-        int param = Integer.parseInt(tst);
-        return new InputCall<>() {
-            @Override
-            public Boolean call() {
-                return item % param == 0;
-            }
-        };
     }
 }
