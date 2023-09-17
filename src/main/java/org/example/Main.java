@@ -4,6 +4,8 @@ import static org.example.Day1.*;
 import static org.example.Day10.*;
 import static org.example.Day11.*;
 import static org.example.Day12.*;
+import static org.example.Day13.aoc13;
+import static org.example.Day13.day13Input;
 import static org.example.Day2.*;
 import static org.example.Day3.*;
 import static org.example.Day4.*;
@@ -51,6 +53,8 @@ public class Main {
         System.out.println("\nAOC12:");
         System.out.println(aoc12(day12Input));
         System.out.println(aoc12a(day12Input));
+        System.out.println("\nAOC13:");
+        System.out.println(aoc13(day13Input));
     }
 
 }
