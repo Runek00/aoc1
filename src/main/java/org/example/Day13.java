@@ -73,17 +73,17 @@ public class Day13 {
             int cnt = 1;
             int idx = 1;
             while (cnt > 0) {
-                if(str.charAt(idx) == '[') {
+                if (str.charAt(idx) == '[') {
                     cnt++;
                 } else if (str.charAt(idx) == ']') {
                     cnt--;
                 }
                 idx++;
             }
-            if (idx >= str.length()-1) {
+            if (idx >= str.length() - 1) {
                 return new String[]{str};
             } else {
-                return new String[]{str.substring(0, idx), str.substring(idx+1)};
+                return new String[]{str.substring(0, idx), str.substring(idx + 1)};
             }
         } else {
             return str.split(",", 2);
@@ -100,7 +100,6 @@ public class Day13 {
             return 1;
         }
     }
-
 
     static String day13Input = """
             [1,1,3,1,1]
